@@ -1,0 +1,15 @@
+/* 引入图标样式 */
+@import "./icon.css";
+
+body{
+	background-color: whitesmoke;
+}
+.app-nav-bar{
+	background-color: #42B983;
+}
+.van-nav-bar__title{
+	color: #fff;
+}
+.van-nav-bar .van-icon{
+	color: #fff;
+}

@@ -45,7 +45,7 @@
 				this.currentUser = data[0]
 				//if(this.currentUser.)
 				
-				//console.log('this.currentUser11',this.currentUser.username)
+				console.log('this.currentUser11',this.currentUser.username)
 				var icon = '+'
 				if(this.currentUser.username.includes(icon)){
 					this.isRelease = !this.isRelease

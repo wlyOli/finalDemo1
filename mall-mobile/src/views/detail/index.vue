@@ -25,7 +25,6 @@
 								   :class="isFavour?'isfavour':''"
 								   @click="OnFavour"
 								   />
-						 <!-- <span>{{isFavour?"已收藏":"未收藏"}}</span> -->
 					 </van-col>
 				</van-col>
 			</van-row>
@@ -42,6 +41,31 @@
 					   >{{isFollow?'已关注':'关注'}}</van-button>
 			   </van-col>
 		   </van-row>  
+		   <van-row class="detailItem">
+			   <!-- 折叠面板 -->
+			   
+				   <van-collapse :value="activeNames"
+								  @change="onChange">
+					<van-collapse-item title="参数" name="3" >
+						元/千克
+					</van-collapse-item>
+					 <van-collapse-item title="选择 净含量" name="1" disabled>
+					 </van-collapse-item>
+					<van-collapse-item 
+						title="假一赔四 急速退款 不支持七天无理由退换" 
+						name="2" disabled>
+					</van-collapse-item>
+					 <van-collapse-item title="配送" name="4">
+						 平台将根据您的收货地址选择最近的仓库为您配货
+					 </van-collapse-item>
+						<img :src="imgList[0]" />
+						<img :src="imgList[1]" />
+						<img :src="imgList[2]" />
+						<img :src="imgList[3]" />
+						
+				   </van-collapse>
+			     
+		   </van-row>
 	   </div>
 	   <!-- 底部 -->
 		  <van-goods-action>
@@ -77,10 +101,13 @@
 						  name:'',
 						  _id:'',
 						  icon:''
-					  }
+					  },
+					  body:{}
 				},
 				isFollow:'',
 				isFavour:'',//是否收藏
+				activeNames: ['3'],
+				imgList:[]
 			}
 		},
 		created(){
@@ -91,10 +118,19 @@
 			...mapState(['userInfo','user'])
 		},
 		methods:{
+			onChange(event) {
+			  this.activeNames = event 
+			},
+			
 			async getDetails(){
 				const { data } = await getItemDetails(this.id)
 				console.log('详情',data)
-				this.detailsInfo = data
+				this.detailsInfo = data	
+				var imgSrc = this.detailsInfo.body.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/g, (match, capture) => {
+			          this.imgList.push(capture);
+			    });
+				// console.log('results',imgSrc,this.imgList)
+			 
 				//判断当前关注状态
 				if(this.userInfo){
 					//some可以中断循环,找到就跳出循环
@@ -192,6 +228,16 @@
 </script>
 
 <style scoped lang="less">
+.detailItem{
+	height: 400px;
+	img{
+		margin-top: 16px;
+		margin-left: 34px;
+		width: 80%;
+		
+	}
+}
+	
 .swiper-block{
     height: 220px;
     width: 100%;

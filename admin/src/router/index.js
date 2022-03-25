@@ -23,7 +23,8 @@ const AdminUserEdit =()=>import('../views/adminUser/AdminUserEdit')
 const AdminUserList =()=>import('../views/adminUser/AdminUserList')
 
 const Login =()=>import('../views/Login')
-
+const FindPass =()=>import('../views/FindPass')
+const PassBack =()=>import('../views/PassBack')
 
 const routes=[
 	{
@@ -31,6 +32,18 @@ const routes=[
 		name:'Login',
 		component:Login,
 		meta:{isPublic:true}
+		
+	},
+	{
+		path:'/findPass',
+		name:'FindPass',
+		component:FindPass,
+		
+	},
+	{
+		path:'/passBack',
+		name:'PassBack',
+		component:PassBack,
 		
 	},
 	{

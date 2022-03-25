@@ -141,6 +141,18 @@ module.exports = app=>{
 		res.send(file)
 	})
 	
+	//找回密码
+	app.post('/admin/api/findPass',async (req,res)=>{
+		console.log('req.body:::',req.body)
+		const {username} = req.body
+		const user = await AdminUser.findOne({username}).select('+password')
+		console.log('user;findPass:',user)
+		//解密bcypt解密后不是明文
+		//const myPass = require('bcrypt').compareSync(user.password,)
+		
+		res.send(user)
+		
+	})
 	
 	//登录login接口
 	app.post('/admin/api/login',async (req,res)=>{
@@ -151,7 +163,7 @@ module.exports = app=>{
 		//const AdminUser = require('../../models/AdminUser')
 		// “+” 强制取某个值，“-” 是被排除
 		const user = await AdminUser.findOne({username}).select('+password')
-		console.log('user',user)
+		console.log('user-login:',user)
 		if(!user){
 			return res.status(422).send({
 				message:"用户名不存在"

@@ -8,13 +8,15 @@
 		>
 		  <van-cell v-for="(item,index) in list" 
 					:key="index" 
-					:title="item.title" />
+					:title="item.title" 
+					@click="itemClick()"/>
 		</van-list>
 	</div>
 </template>
 
 <script>
 	import { getResults } from '@/api/search'
+	import { getItemDetails } from '@/api/details'
 	
 	export default({
 		name:'SearchResult',
@@ -58,6 +60,10 @@
 				 }
 				 
 			    },
+				itemClick(){
+					this.$router.push('/detail/'+ this.list[0]._id)
+					// console.log('itemClick',this.list[0]._id)
+				}
 		}
 	})
 </script>
